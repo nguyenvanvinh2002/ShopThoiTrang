@@ -1,0 +1,6 @@
+@ShopThoiTrang.API_HostAddress = http://localhost:5084
+
+GET {{ShopThoiTrang.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
