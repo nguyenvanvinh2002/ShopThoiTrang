@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShopThoiTrang.App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+71fd076ec85d97bd901162ef173b0df7fbdc6af3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b116a428f2c5e97ef76d672d3f95140841e8b104")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShopThoiTrang.App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShopThoiTrang.App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

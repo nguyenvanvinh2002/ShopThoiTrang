@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopThoiTrang.API.Data;
 using ShopThoiTrang.API.Model;
@@ -7,6 +8,7 @@ namespace ShopThoiTrang.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class ProductsController : ControllerBase
     {
         private readonly MyDbContext _context;
@@ -17,9 +19,12 @@ namespace ShopThoiTrang.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-
-            var lstproducts = _context.SanPhams.ToList();
-            return Ok(lstproducts);
+           
+                var lstproducts = _context.SanPhams.ToList();
+                return Ok(lstproducts);
+            
+          
+           
 
         }
         [HttpGet("{IdSp}")]
@@ -37,7 +42,7 @@ namespace ShopThoiTrang.API.Controllers
                 return Ok(ftsp);
             }
         }
-     
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateProducts(SanPhamsModel model)
         {
@@ -55,6 +60,7 @@ namespace ShopThoiTrang.API.Controllers
             _context.SaveChanges();
             return Ok("thêm sản phẩm thành công");
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("{IdSp}")]
         public IActionResult UpdateProducts(int IdSp, SanPhamsModel model)
         {
@@ -76,6 +82,7 @@ namespace ShopThoiTrang.API.Controllers
             _context.SaveChanges();
             return Ok("cập nhật thành công");
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{IdSp}")]
         public IActionResult DeleteProducts(int IdSp)
         {

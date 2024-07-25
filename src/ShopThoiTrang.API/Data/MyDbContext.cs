@@ -7,8 +7,9 @@ namespace ShopThoiTrang.API.Data
         public MyDbContext(DbContextOptions options) : base(options) {}
 
 
-    public DbSet<SanPhams> SanPhams { get; set; }
-}
+        public DbSet<SanPhams> SanPhams { get; set; }
+        public DbSet<Users> Users { get; set; }
+    }
    
  }  
 
