@@ -4,3 +4,7 @@
 
 /.vs
 *.dll
+src/ShopThoiTrang.API/bin/
+src/ShopThoiTrang.App/bin/
+src/ShopThoiTrang.API/obj/
+src/ShopThoiTrang.App/obj/

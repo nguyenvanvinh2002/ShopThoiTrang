@@ -21,8 +21,10 @@ namespace ShopThoiTrang.App.Controllers
             if (response.IsSuccessStatusCode) { 
             
             var data = await response.Content.ReadAsStringAsync();
-                products =  JsonConvert.DeserializeObject<List<Products>>(data);
+            products =  JsonConvert.DeserializeObject<List<Products>>(data);
+
             }
+            ViewBag.Products = products;
             return View(products);
         }
     }

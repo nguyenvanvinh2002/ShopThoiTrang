@@ -27,7 +27,7 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(alluser);
         }
         [HttpPut("UpdateUserRole/{Id}")]
-        public async Task<IActionResult> UpdateUserRole(int Id, UserRole role)
+        public async Task<IActionResult> UpdateUserRole(int Id, UsersModel role)
         {
             var IdRl =await _context.Users.SingleOrDefaultAsync(x => x.Id == Id);
             if (IdRl == null)
@@ -46,7 +46,7 @@ namespace ShopThoiTrang.API.Controllers
 
         }
         [HttpPut("UpdateUserStatus/{Id}")]
-        public async Task<IActionResult> UpdateUserStatus(int Id , UserStatus status)
+        public async Task<IActionResult> UpdateUserStatus(int Id , UsersModel status)
         {
             var IdSt = await _context.Users.SingleOrDefaultAsync(x => x.Id == Id);
             if (IdSt == null)
@@ -81,7 +81,7 @@ namespace ShopThoiTrang.API.Controllers
             {
                 _context.Users.Remove(DlUs);
               await  _context.SaveChangesAsync();
-                return BadRequest("Xóa thành công");
+                return Ok("Xóa thành công");
             }
         }
 

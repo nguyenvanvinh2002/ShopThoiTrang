@@ -33,6 +33,8 @@ namespace ShopThoiTrang.API.Controllers
             {
                 UserName = acc.UserName,
                 PassWord = acc.PassWord
+
+                
             };
 
             await _context.AddAsync(newUser);
