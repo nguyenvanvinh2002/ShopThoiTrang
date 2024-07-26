@@ -15,6 +15,8 @@ namespace ShopThoiTrang.API.Data
         public string? PassWord { get; set; }
         [StringLength(50)]
         public string? Roles { get; set; } = "User";
+        public int? Status { get; set; }
+
 
     }
 }

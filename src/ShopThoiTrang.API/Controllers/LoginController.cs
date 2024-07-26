@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ShopThoiTrang.API.Data;
-using ShopThoiTrang.API.Model;
+using ShopThoiTrang.API.Model.Users;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -27,8 +28,13 @@ namespace ShopThoiTrang.API.Controllers
         public IActionResult Login(UsersModel user)
         {
             var check = _context.Users.SingleOrDefault(x => x.UserName == user.UserName && x.PassWord == user.PassWord);
+           
             if (check == null) {
                 return BadRequest("Tài khoản hoặc mật khẩu không đúng");
+            }
+            if(check != null && check.Status == 0)
+            {
+                return BadRequest("Tài khoản đang bị khóa");
             }
             //new token JWT
             var claims = new[]
@@ -51,8 +57,14 @@ namespace ShopThoiTrang.API.Controllers
                  signingCredentials: Login
                 );
             string tokenvalue = new JwtSecurityTokenHandler().WriteToken(token);
+          
+            return Ok(new {
+                messege = "Đăng nhập thành công",
+                token = tokenvalue,
+                User = check
 
-            return Ok(new {token = tokenvalue,User = check});
+            
+            });
         }
     }
 }

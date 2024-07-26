@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.API.Data;
-using ShopThoiTrang.API.Model;
+using ShopThoiTrang.API.Model.Users;
 
 namespace ShopThoiTrang.API.Controllers
 {
@@ -15,9 +16,7 @@ namespace ShopThoiTrang.API.Controllers
             _context = context;
         }
         [HttpPost]
-        public IActionResult RegiterUser(UsersModel acc)
-
-            
+        public async Task<IActionResult> RegiterUser(UsersModel acc)
         {
             
 
@@ -25,7 +24,7 @@ namespace ShopThoiTrang.API.Controllers
             {
                 return BadRequest("Không được để trống tên người dùng hoặc mật khẩu.");
             }
-            var check = _context.Users.Any(x => x.UserName == acc.UserName);
+            var check = await _context.Users.AnyAsync(x => x.UserName == acc.UserName);
             if (check)
             {
                 return BadRequest("Tài khoản đã tồn tại");
@@ -36,8 +35,8 @@ namespace ShopThoiTrang.API.Controllers
                 PassWord = acc.PassWord
             };
 
-            _context.Add(newUser);
-            _context.SaveChanges();
+            await _context.AddAsync(newUser);
+            await _context.SaveChangesAsync();
             return Ok("Đăng ký thành công");
 
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.API.Data;
 using ShopThoiTrang.API.Model;
 
@@ -17,10 +18,10 @@ namespace ShopThoiTrang.API.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
            
-                var lstproducts = _context.SanPhams.ToList();
+                var lstproducts = await _context.SanPhams.ToListAsync();
                 return Ok(lstproducts);
             
           
@@ -28,10 +29,10 @@ namespace ShopThoiTrang.API.Controllers
 
         }
         [HttpGet("{IdSp}")]
-        public IActionResult FillterById(int IdSp)
+        public async Task<IActionResult> FillterById(int IdSp)
         {
 
-            var ftsp = _context.SanPhams.SingleOrDefault(a => a.IdSp == IdSp);
+            var ftsp = await _context.SanPhams.SingleOrDefaultAsync(a => a.IdSp == IdSp);
             if (ftsp == null)
             {
 
@@ -44,7 +45,7 @@ namespace ShopThoiTrang.API.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult CreateProducts(SanPhamsModel model)
+        public async Task<IActionResult> CreateProducts(SanPhamsModel model)
         {
             var lstproducts = new SanPhams
             {
@@ -56,15 +57,15 @@ namespace ShopThoiTrang.API.Controllers
                 GiaSp = model.GiaSp,
                 Mota = model.Mota
             };
-            _context.Add(lstproducts);
-            _context.SaveChanges();
+          await  _context.AddAsync(lstproducts);
+           await _context.SaveChangesAsync();
             return Ok("thêm sản phẩm thành công");
         }
         [Authorize(Roles = "Admin")]
         [HttpPut("{IdSp}")]
-        public IActionResult UpdateProducts(int IdSp, SanPhamsModel model)
+        public async Task<IActionResult> UpdateProducts(int IdSp, SanPhamsModel model)
         {
-            var upsp = _context.SanPhams.SingleOrDefault(a => a.IdSp == IdSp);
+            var upsp = await _context.SanPhams.SingleOrDefaultAsync(a => a.IdSp == IdSp);
             if (upsp == null)
             {
                 return BadRequest("Không tìm thấy Id sản phẩm");
@@ -79,14 +80,14 @@ namespace ShopThoiTrang.API.Controllers
                 upsp.GiaSp = model.GiaSp;
                 upsp.Mota = model.Mota;
             }
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
             return Ok("cập nhật thành công");
         }
         [Authorize(Roles = "Admin")]
         [HttpDelete("{IdSp}")]
-        public IActionResult DeleteProducts(int IdSp)
+        public async Task<IActionResult> DeleteProducts(int IdSp)
         {
-            var dlsp = _context.SanPhams.SingleOrDefault(a => a.IdSp == IdSp);
+            var dlsp = await _context.SanPhams.SingleOrDefaultAsync(a => a.IdSp == IdSp);
             if (dlsp == null)
             {
                 return BadRequest("Không tìm thấy Id sản Phẩm");
@@ -94,7 +95,7 @@ namespace ShopThoiTrang.API.Controllers
             else
             {
                 _context.Remove(dlsp);
-                _context.SaveChanges();
+                await  _context.SaveChangesAsync();
                 return Ok("Xóa Sản Phẩm thành công");
             }
         }

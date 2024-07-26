@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.API.Data;
-using ShopThoiTrang.API.Model;
+using ShopThoiTrang.API.Model.Users;
+using System.Data;
+
 
 namespace ShopThoiTrang.API.Controllers
 {
@@ -17,17 +20,17 @@ namespace ShopThoiTrang.API.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult GetAllUser()
+        public async Task<IActionResult> GetAllUser()
         {
 
-            var alluser = _context.Users.ToList();
+            var alluser =await _context.Users.ToListAsync();
             return Ok(alluser);
         }
-        [HttpPut("{Id}")]
-        public IActionResult UpdateUser(int Id, UsersModel users)
+        [HttpPut("UpdateUserRole/{Id}")]
+        public async Task<IActionResult> UpdateUserRole(int Id, UserRole role)
         {
-            var IdUs = _context.Users.SingleOrDefault(x => x.Id == Id);
-            if (IdUs == null)
+            var IdRl =await _context.Users.SingleOrDefaultAsync(x => x.Id == Id);
+            if (IdRl == null)
             {
                 return BadRequest("Không tìm thấy Id này");
 
@@ -35,27 +38,34 @@ namespace ShopThoiTrang.API.Controllers
             else
             {
 
-                IdUs.Roles = users.Roles;
+                IdRl.Roles = role.Roles;
 
             }
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
             return Ok("Cập nhật thành công");
 
         }
-        [HttpDelete("{Id}")]
-        public IActionResult DeleteUser(int Id) {
-
-            var Dlus = _context.Users.SingleOrDefault(x => x.Id == Id);
-            if (Dlus == null) {
+        [HttpPut("UpdateUserStatus/{Id}")]
+        public async Task<IActionResult> UpdateUserStatus(int Id , UserStatus status)
+        {
+            var IdSt = await _context.Users.SingleOrDefaultAsync(x => x.Id == Id);
+            if (IdSt == null)
+            {
                 return BadRequest("Không tìm thấy Id này");
+
             }
             else
             {
-                _context.Remove(Dlus);
-                _context.SaveChanges();
-                return Ok("Xóa thành công");
+
+                IdSt.Status = status.Status;
+
             }
-        
+            await _context.SaveChangesAsync();
+            return Ok("Cập nhật thành công");
+
         }
+
+
+
     }
 }

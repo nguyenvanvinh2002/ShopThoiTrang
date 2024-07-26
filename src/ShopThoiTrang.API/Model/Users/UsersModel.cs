@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShopThoiTrang.API.Model
+namespace ShopThoiTrang.API.Model.Users
 {
     public class UsersModel
     {
@@ -9,8 +9,9 @@ namespace ShopThoiTrang.API.Model
 
         [StringLength(50)]
         public string? PassWord { get; set; }
-        [StringLength (50)]
-        public string? Roles { get; set; }
-       
+
+        
+      
+
     }
 }
