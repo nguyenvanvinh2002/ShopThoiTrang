@@ -64,7 +64,26 @@ namespace ShopThoiTrang.API.Controllers
             return Ok("Cập nhật thành công");
 
         }
-
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleUser(int Id)
+        {
+            
+            var DlUs = await _context.Users.SingleOrDefaultAsync(x => x.Id == Id);
+            if(DlUs == null)
+            {
+                return BadRequest("Không tìm thấy Id này");
+            }
+            if(DlUs.UserName == "Admin")
+            {
+                return BadRequest("Bạn không thể xóa tài khoản này");
+            }
+            else
+            {
+                _context.Users.Remove(DlUs);
+              await  _context.SaveChangesAsync();
+                return BadRequest("Xóa thành công");
+            }
+        }
 
 
     }

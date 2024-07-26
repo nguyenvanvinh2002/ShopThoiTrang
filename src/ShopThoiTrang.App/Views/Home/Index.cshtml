@@ -1,9 +1,14 @@
-﻿
+﻿@model IEnumerable<ShopThoiTrang.App.Models.Products>
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <H1 class="text-center fw-bold">
     Hiển thị ở đây
-  
 </H1>
+@foreach(var item in Model)
+{
+    <div class="fw-bold text-black">@item.TenSp</div>
+}
+

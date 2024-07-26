@@ -8,9 +8,22 @@ namespace ShopThoiTrang.App.Controllers
     public class HomeController : Controller
 
     {
-        public IActionResult Index()
+        private readonly HttpClient _httpClient;
+        public HomeController(HttpClient httpClient)
         {
-            return View();
+            _httpClient = httpClient;
+        }
+
+        public async  Task<IActionResult> Index()
+        {
+            List<Products> products = new List<Products>();
+            HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44353/api/Products");
+            if (response.IsSuccessStatusCode) { 
+            
+            var data = await response.Content.ReadAsStringAsync();
+                products =  JsonConvert.DeserializeObject<List<Products>>(data);
+            }
+            return View(products);
         }
     }
 }

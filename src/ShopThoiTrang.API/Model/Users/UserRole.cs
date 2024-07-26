@@ -7,7 +7,6 @@ namespace ShopThoiTrang.API.Model.Users
         [StringLength(50)]
         public string? Roles { get; set; }
 
-      
-
+   
     }
 }

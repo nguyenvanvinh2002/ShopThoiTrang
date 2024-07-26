@@ -36,14 +36,18 @@ namespace ShopThoiTrang.API.Controllers
             {
                 return BadRequest("Tài khoản đang bị khóa");
             }
+            
+
             //new token JWT
             var claims = new[]
             {
+
                 new Claim(JwtRegisteredClaimNames.Sub , _configuration["Jwt:Subject"]),
                 new Claim(JwtRegisteredClaimNames.Jti , Guid.NewGuid().ToString()),
                 new Claim("UserId", check.Id.ToString()),
                 new Claim("UserName", check.UserName),
-                new Claim("Roles",check.Roles)
+                new Claim("Roles",check.Roles),
+               
 
 
             };
