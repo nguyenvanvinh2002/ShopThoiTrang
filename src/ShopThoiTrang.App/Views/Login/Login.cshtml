@@ -1,4 +1,44 @@
-﻿@*
+﻿@* @model ShopThoiTrang.App.Models.UserModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<h4>UserModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassWord" class="control-label"></label>
+                <input asp-for="PassWord" class="form-control" />
+                <span asp-validation-for="PassWord" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -13,28 +53,29 @@
 	<link href="~/css/css2.css" />
 </head>
 <body>
-	<center><div class="main">
-		<input type="checkbox" id="chk" aria-hidden="true">
+	<center>
+		<div class="main">
+			<input type="checkbox" id="chk" aria-hidden="true">
 
-		<div class="signup">
-			<form>
-				<label for="chk" aria-hidden="true">Sign up</label>
-				<input type="text" name="txt" placeholder="User name" required="">
-				<input type="password" name="pswd" placeholder="Password" required="">
-				<button>Sign up</button>
-			</form>
-		</div>
+			<div class="signup">
+				<form>
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text"  placeholder="UserName" required="">
+					<input type="password"  placeholder="PassWord" required="">
+					<button>Sign up</button>
+				</form>
+			</div>
 
-		<div class="login">
+			<div class="login">
 				<form asp-action="Login" method="post">
-				<label for="chk" aria-hidden="true">Login</label>
-					<input type="text" name="UserName" placeholder="User Name" required />
-					<input type="text" name="PassWord" placeholder="Pass Word" required />
-				<button type="submit">Login</button>
-					
-			</form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="text" placeholder="UserName" required />
+					<input type="text"  placeholder="PassWord" required />
+					<Input style="height:45px;background:#573b8a;font-weight:bold;color:white" type="submit" value="Login"></Input>
+
+				</form>
+			</div>
 		</div>
-	</div>
 	</center>
 </body>
 </html>

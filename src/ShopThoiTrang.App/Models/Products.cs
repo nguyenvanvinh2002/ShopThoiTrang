@@ -24,4 +24,5 @@ namespace ShopThoiTrang.App.Models
 
         public string? Mota { get; set; }
     }
+
 }

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ShopThoiTrang.API.Data;
 using ShopThoiTrang.API.Model;
+using System.Linq;
 
 namespace ShopThoiTrang.API.Controllers
 {
@@ -13,30 +15,33 @@ namespace ShopThoiTrang.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly MyDbContext _context;
-        public ProductsController(MyDbContext context)
+        private readonly PageSize _pageSize;
+        public ProductsController(MyDbContext context, IOptions<PageSize> pageSize)
         {
             _context = context;
+            _pageSize = pageSize.Value;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int? pageNumber ,int? pageSize  )
         {
-           
-                var lstproducts = await _context.SanPhams.ToListAsync();
-                return Ok(lstproducts);
-            
-          
-           
+            int pageNum = pageNumber ?? _pageSize.PageNumber;
+            int pageSizeNum = pageSize ?? _pageSize.PageSizeNumber;
+
+
+            var lstproducts = await _context.SanPhams.Skip((pageNum - 1) * pageSizeNum).Take(pageSizeNum).ToListAsync();
+      
+            return Ok(lstproducts);
 
         }
-        [HttpGet("{IdSp}")]
-        public async Task<IActionResult> FillterById(int IdSp)
+        [HttpGet("{danhMucSp}")]
+        public async Task<IActionResult> FillterById(string danhMucSp, int pageNumber = 1 ,int pageSize = 3)
         {
 
-            var ftsp = await _context.SanPhams.SingleOrDefaultAsync(a => a.IdSp == IdSp);
-            if (ftsp == null)
+            var ftsp = await _context.SanPhams.Where(a => a.DanhMucSp == danhMucSp).Skip((pageNumber - 1)* pageSize).Take(pageSize).ToListAsync();
+            if (ftsp == null || !ftsp.Any())
             {
 
-                return BadRequest("Không tìm thấy Id phù hợp ");
+                return BadRequest("Không tìm thấy sản phẩm phù hợp ");
             }
             else
             {

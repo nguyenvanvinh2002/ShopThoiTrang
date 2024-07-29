@@ -65,14 +65,16 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
+//sql
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
    options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
 });
+//phân trang api
+builder.Services.Configure<PageSize>(builder.Configuration.GetSection("PagePagination"));
+
+
 var app = builder.Build();
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

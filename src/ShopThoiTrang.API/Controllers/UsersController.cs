@@ -20,10 +20,11 @@ namespace ShopThoiTrang.API.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllUser()
+        public async Task<IActionResult> GetAllUser(int PageNumber = 1,int PageSize =3)
         {
-
-            var alluser =await _context.Users.ToListAsync();
+            
+            var alluser =await _context.Users.Skip((PageNumber-1)* PageSize).Take(PageSize).ToListAsync();
+            
             return Ok(alluser);
         }
         [HttpPut("UpdateUserRole/{Id}")]
