@@ -1,12 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using ShopThoiTrang.App.Models;
+using System.Reflection;
+using System.Text;
+using System.Text.Json;
 
 namespace ShopThoiTrang.App.Controllers
 {
     public class LoginController : Controller
     {
-        public async Task<IActionResult> Login()
-        {
-            return View();
-        }
+        
+		public IActionResult Login()
+		{
+			return View();
+		}
+		
+
+
+
     }
 }

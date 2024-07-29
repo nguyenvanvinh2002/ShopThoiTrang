@@ -25,7 +25,7 @@ namespace ShopThoiTrang.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UsersModel user)
+        public IActionResult Login([FromBody]UsersModel user)
         {
             var check = _context.Users.SingleOrDefault(x => x.UserName == user.UserName && x.PassWord == user.PassWord);
            
@@ -47,6 +47,7 @@ namespace ShopThoiTrang.API.Controllers
                 new Claim("UserId", check.Id.ToString()),
                 new Claim("UserName", check.UserName),
                 new Claim("Roles",check.Roles),
+                
                
 
 

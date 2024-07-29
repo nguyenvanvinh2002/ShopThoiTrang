@@ -3,15 +3,39 @@
 *@
 @{
 }
-<center><div class="form">
-   <h2> LOGIN</h2>
-    .<form id="loginForm">
-         <div><lable>UserName</lable>
-        <input type="text" id="username" name="username" placeholder="" /></div>
-        <div><lable>PassWord</lable>
-        <input type="text"id="password" name="password" placeholder="" /></div>
-         <input type="submit" name="login" value="Login" />
-    </form>
-   
-</div>
-</center
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+	<link href="~/css/StyleSheet.css" rel="stylesheet" />
+	<link href="~/css/css2.css" />
+</head>
+<body>
+	<center><div class="main">
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+		<div class="signup">
+			<form>
+				<label for="chk" aria-hidden="true">Sign up</label>
+				<input type="text" name="txt" placeholder="User name" required="">
+				<input type="password" name="pswd" placeholder="Password" required="">
+				<button>Sign up</button>
+			</form>
+		</div>
+
+		<div class="login">
+				<form asp-action="Login" method="post">
+				<label for="chk" aria-hidden="true">Login</label>
+					<input type="text" name="UserName" placeholder="User Name" required />
+					<input type="text" name="PassWord" placeholder="Pass Word" required />
+				<button type="submit">Login</button>
+					
+			</form>
+		</div>
+	</div>
+	</center>
+</body>
+</html>
+
